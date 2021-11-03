@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+*/__pycache__
+# Datasource local storage ignored files
+/../../../../../../:\Coding\Codes\ECure\news_spider\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
