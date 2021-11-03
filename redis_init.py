@@ -7,8 +7,9 @@ Mail: nghuyong@163.com
 Created Time: 2020/4/15
 """
 import datetime
-import redis
 import sys
+
+import redis
 
 
 def redis_init(spider_name, urls):

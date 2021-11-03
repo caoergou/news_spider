@@ -3,9 +3,7 @@ import pymongo
 import redis
 from pymongo.errors import DuplicateKeyError
 
-from items import UserItem
 from settings import MONGO_HOST, MONGO_PORT
-
 
 
 class MongoDBPipeline(object):
@@ -18,7 +16,7 @@ class MongoDBPipeline(object):
         self.Relationships = db["Relationships"]
 
     def process_item(self, item, spider):
-        if item == None:
+        if item is None:
             print("got Nothing!")
             return None
         dic = dict(item)
@@ -27,17 +25,17 @@ class MongoDBPipeline(object):
         if spider.name == 'fan_spider':
             self.insert_item(self.Relationships, dic)
             if not self.check_exist(self.redis_client, dic.get("_id")):
-                self.redis_add_val(self.redis_client, spider.name,dic.get("fan_id"))
+                self.redis_add_val(self.redis_client, spider.name, dic.get("fan_id"))
         elif spider.name == 'follower_spider':
             self.insert_item(self.Relationships, dic)
             if not self.check_exist(self.redis_client, dic.get("_id")):
-                self.redis_add_val(self.redis_client, spider.name,dic.get("followed_id"))
+                self.redis_add_val(self.redis_client, spider.name, dic.get("followed_id"))
         elif spider.name == 'user_spider':
             dic['potential'] = False
             if self.check_user(dic):
                 dic['potential'] = True
                 if not self.check_exist(self.redis_client, dic.get("_id")):
-                    self.redis_add_val(self.redis_client, spider.name,dic.get("_id"))
+                    self.redis_add_val(self.redis_client, spider.name, dic.get("_id"))
             self.insert_item(self.Users, dic)
             self.insert_uid(self.redis_client, dic.get("_id"))
         return item
@@ -45,8 +43,8 @@ class MongoDBPipeline(object):
     @classmethod
     def check_user(cls, dic):
         fields = [('昵称', 'nick_name'),
-                ('简介', 'brief_introduction'),
-                ('教育经历', 'education')]
+                  ('简介', 'brief_introduction'),
+                  ('教育经历', 'education')]
 
         keywords = {
             "复旦大学": ["复旦", "FDU", "光华"],
@@ -75,7 +73,7 @@ class MongoDBPipeline(object):
         }
 
         united_fields = " ".join([str(dic.get(kv[1])) for kv in fields])
-        
+
         for keyword in keywords:
             for item in keywords[keyword]:
                 if item in united_fields:
@@ -90,7 +88,7 @@ class MongoDBPipeline(object):
         except DuplicateKeyError:
             pass
 
-    @staticmethod 
+    @staticmethod
     def redis_add_val(client, spider_name, uid):
         if spider_name == 'fan_spider' or spider_name == 'follower_spider':
             url = f"https://weibo.cn/{uid}/info"
@@ -109,7 +107,7 @@ class MongoDBPipeline(object):
             client.sadd("user", uid)
         except DuplicateKeyError:
             pass
-    
+
     @staticmethod
     def check_exist(client, uid):
         return client.sismember("user", uid)

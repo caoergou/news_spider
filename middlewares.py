@@ -1,8 +1,8 @@
 # encoding: utf-8
 import random
-import requests
-import random
+
 import pymongo
+
 from settings import MONGO_PORT, MONGO_HOST
 
 
@@ -63,4 +63,4 @@ class IPProxyMiddleware(object):
         if proxy_data:
             current_proxy = f'http://{proxy_data}'
             spider.logger.debug(f"current proxy:{current_proxy}")
-            request.meta['proxies'] = {"http"  :current_proxy,"https"  : current_proxy}
+            request.meta['proxies'] = {"http": current_proxy, "https": current_proxy}

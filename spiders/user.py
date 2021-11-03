@@ -7,10 +7,12 @@ Mail: nghuyong@163.com
 Created Time: 2020/4/14
 """
 import re
+import time
+
 from scrapy import Selector
 from scrapy.http import Request
 from scrapy_redis.spiders import RedisSpider
-import time
+
 from items import UserItem
 
 

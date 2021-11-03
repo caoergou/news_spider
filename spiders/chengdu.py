@@ -7,16 +7,18 @@ Mail: nghuyong@163.com
 Created Time: 2020/4/14
 """
 import re
+import time
+
 from lxml import etree
 from scrapy.http import Request
 from scrapy_redis.spiders import RedisSpider
-import time
+
 from items import CommentItem
 from spiders.utils import extract_comment_content, time_fix
 
 
-class CommentSpider(RedisSpider):
-    name = "comment_spider"
+class ChengduNewsSpider(RedisSpider):
+    name = "chengdu_news_spider"
     base_url = "https://weibo.cn"
     redis_key = "comment_spider:start_urls"
 

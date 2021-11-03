@@ -43,7 +43,6 @@ ITEM_PIPELINES = {
 MONGO_HOST = 'mongodb'
 MONGO_PORT = 27017
 
-
 # Redis Config
 REDIS_HOST = 'redis'
 REDIS_PORT = 6379

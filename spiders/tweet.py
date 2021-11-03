@@ -6,13 +6,15 @@ Author: nghuyong
 Mail: nghuyong@163.com
 Created Time: 2020/4/14
 """
+import datetime
 import re
+import time
+from urllib.parse import unquote
+
 from lxml import etree
 from scrapy.http import Request
 from scrapy_redis.spiders import RedisSpider
-import time
-import datetime
-from urllib.parse import unquote
+
 from items import TweetItem
 from spiders.utils import time_fix, extract_weibo_content
 

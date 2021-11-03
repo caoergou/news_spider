@@ -7,11 +7,13 @@ Mail: nghuyong@163.com
 Created Time: 2020/4/14
 """
 import re
-from scrapy.selector import Selector
-from scrapy.http import Request
-from scrapy_redis.spiders import RedisSpider
-from items import RelationshipItem
 import time
+
+from scrapy.http import Request
+from scrapy.selector import Selector
+from scrapy_redis.spiders import RedisSpider
+
+from items import RelationshipItem
 
 
 class FollowerSpider(RedisSpider):

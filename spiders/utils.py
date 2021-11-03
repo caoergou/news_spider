@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
-import re
 import datetime
+import re
 
 
 def time_fix(time_string):
